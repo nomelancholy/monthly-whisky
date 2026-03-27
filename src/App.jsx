@@ -39,8 +39,7 @@ const conceptItems = [
     id: "concept-4",
     label: "04 / STYLE",
     title: "Single Malt Scotch Whisky",
-    text: `싱글 몰트 위스키란 스코틀랜드의 엄격한 전통에 따라 오직 단 하나의 증류소에서 100% 맥아만을 사용해 빚어내어, 
-    그 땅의 풍토와 증류소의 고집스러운 개성이 담긴 위스키를 말합니다.`,
+    text: `싱글 몰트 위스키란 스코틀랜드의 엄격한 전통에 따라 오직 단 하나의 증류소에서 100% 맥아만을 사용해 빚어내어, 그 땅의 풍토와 증류소의 고집스러운 개성이 담긴 위스키를 말합니다.`,
     meta: [],
   },
 ];
@@ -179,8 +178,7 @@ function App() {
                           <br />
                           깨끗하고 풍부한 물이 흐르는 위스키의 성지입니다.
                           누구나 사랑할 수밖에 없는 부드럽고 달콤한 과일 향이
-                          일품이며, 오늘 우리가 마실 '글렌 그란트'처럼 화사하고
-                          화려한 풍미를 선호하는 곳입니다.
+                          일품이며, 화사하고 화려한 풍미를 선호하는 곳입니다.
                         </p>
                         <p>
                           <strong>
@@ -247,6 +245,115 @@ function App() {
                   <div className="strata-inner whisky-strata-inner">
                     <div className="strata-text">
                       <p className="whisky-name-display">{item.name}</p>
+                      {item.id === "whisky-1" && (
+                        <div className="whisky-extra-guide">
+                          <p>
+                            <strong className="whisky-highlight">증류소:</strong>{" "}
+                            글렌드로낙 (Glendronach Distillery)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">지역:</strong>{" "}
+                            하이랜드 (Highland)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              설립 연도:
+                            </strong>{" "}
+                            1826년
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">캐스크:</strong>{" "}
+                            페드로 히메네즈(PX) & 올로로소(Oloroso) 셰리 캐스크
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">특징:</strong>{" "}
+                            '셰리 캐스크 숙성의 명가'답게 두 종류의 셰리 오크통을
+                            절묘하게 블렌딩합니다. 달콤한 디저트 와인 같은 PX
+                            캐스크와 견과류의 고소함이 특징인 올로로소 캐스크가
+                            만나 독보적인 묵직함과 깊이를 완성합니다.
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              테이스팅 노트:
+                            </strong>{" "}
+                            입안을 가득 채우는 달콤한 건포도와 끈적한 시럽, 다크
+                            초콜릿의 풍미 뒤로 시나몬과 고소한 견과류의
+                            스파이시함이 조화롭게 이어집니다
+                          </p>
+                        </div>
+                      )}
+                      {item.id === "whisky-2" && (
+                        <div className="whisky-extra-guide">
+                          <p>
+                            <strong className="whisky-highlight">증류소:</strong>{" "}
+                            글렌 그란트 (Glen Grant Distillery)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">지역:</strong>{" "}
+                            스페이사이드 (Speyside)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              설립 연도:
+                            </strong>{" "}
+                            1840년
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">캐스크:</strong>{" "}
+                            엑스 버번 캐스크 (Ex-Bourbon Cask)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">특징:</strong>{" "}
+                            가늘고 긴 모양의 독특한 증류기를 사용하여 불순물을
+                            걸러내고, 스카치 위스키 중 가장 깨끗하고 화사한 원액을
+                            추출하기로 유명합니다.
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              테이스팅 노트:
+                            </strong>{" "}
+                            잘 익은 사과와 배의 상큼한 과육, 화사한 꽃향기 뒤로
+                            이어지는 부드러운 바닐라의 여운을 즐길 수 있습니다.
+                          </p>
+                        </div>
+                      )}
+                      {item.id === "whisky-3" && (
+                        <div className="whisky-extra-guide">
+                          <p>
+                            <strong className="whisky-highlight">증류소:</strong>{" "}
+                            보모어 (Bowmore Distillery)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">지역:</strong>{" "}
+                            아일라 (Islay)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              설립 연도:
+                            </strong>{" "}
+                            1779년
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">캐스크:</strong>{" "}
+                            버번 & 셰리 캐스크 (Bourbon & Sherry Mix)
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">특징:</strong>{" "}
+                            아일라섬에서 가장 오래된 역사를 가진 증류소입니다.
+                            전통적인 플로어 몰팅 방식을 유지하며, 아일라 특유의
+                            강렬한 피트 향을 부드럽고 우아하게 풀어낸 '피트 입문의
+                            정석'으로 불립니다.
+                          </p>
+                          <p>
+                            <strong className="whisky-highlight">
+                              테이스팅 노트:
+                            </strong>{" "}
+                            입안 가득 퍼지는 은은한 훈연 향과 상큼한 레몬,
+                            달콤한 꿀과 다크 초콜릿이 바다의 짭조름한 내음과
+                            완벽한 밸런스를 이룹니다.
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -274,114 +381,138 @@ function App() {
               <div className="strata-inner whisky-strata-inner">
                 <div className="strata-text">
                   <div className="whisky-extra-guide">
-                    <p className="guide-title">
-                      1. 글렌 그란트 12년이 좋았다면? (청량·화사·과일)
-                    </p>
-                    <p>
-                      가볍고 섬세한 버번 캐스크 특유의 꽃향기와 과일 맛을
-                      선호하는 분들을 위한 추천입니다.
-                    </p>
+                    <p className="guide-title">[Single Malt Scotch Whisky]</p>
                     <p>
                       <strong className="whisky-highlight">
-                        글렌리벳 12년 (The Glenlivet 12y):
+                        글렌피딕 12년 (Glenfiddich 12y):
                       </strong>{" "}
-                      싱글몰트의 정석이라 불리며, 글렌 그란트보다 조금 더
-                      부드럽고 잘 익은 바나나, 파인애플 같은 열대 과일 향이
-                      매력적입니다.
-                    </p>
-                    <p>
-                      <strong className="whisky-highlight">
-                        올드 푸트니 12년 (Old Pulteney 12y):
-                      </strong>{" "}
-                      '바다의 위스키'라 불립니다. 글렌 그란트처럼 화사하지만
-                      끝맛에서 살짝 느껴지는 짭조름한 소금기가 아주 매력적인
-                      반전을 줍니다.
+                      1963년, 블렌디드의 시대에 맞서 세상에 처음으로 '싱글
+                      몰트'의 존재를 알린 개척자입니다. 서양배의 상큼함과
+                      은은한 꿀맛이 조화로운 전 세계 판매 1위 위스키입니다.
                     </p>
 
-                    <p className="guide-title">
-                      2. 글렌드로낙 12년이 좋았다면? (묵직·달콤·건과일)
-                    </p>
+                    <p className="guide-title">[Sherry Cask]</p>
                     <p>
-                      꾸덕한 셰리 캐스크의 진한 풍미와 다크 초콜릿 같은 무게감을
-                      좋아하는 분들을 위한 추천입니다.
-                    </p>
-                    <p>
-                      <strong className="whisky-highlight">
-                        글렌파클라스 12년 (Glenfarclas 12y):
-                      </strong>{" "}
-                      글렌드로낙과 함께 셰리 3대장으로 꼽힙니다. 조금 더
-                      타격감이 있고 스파이시하며, 전통적인 셰리의 풍미를
-                      정직하게 보여줍니다.
+                      글렌드로낙 12년의 묵직한 달콤함이 좋았다면, 이 리스트를
+                      따라가 보세요.
                     </p>
                     <p>
                       <strong className="whisky-highlight">
-                        탐두 12년 (Tamdhu 12y):
+                        글렌파클라스 105 (Glenfarclas 105 CS):
                       </strong>{" "}
-                      100% 셰리 캐스크 숙성을 고집하는 브랜드입니다.
-                      글렌드로낙보다 조금 더 화사하고 베리류의 상큼함이 섞인
-                      셰리 맛을 느낄 수 있습니다.
+                      물을 섞지 않은 원액 그대로의 강렬한 타격감과 진한 셰리
+                      향의 정수.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        맥캘란 12년 셰리 오크 (Macallan 12y Sherry Oak):
+                      </strong>{" "}
+                      '위스키계의 롤스로이스'. 가장 정제되고 귀족적인 셰리의
+                      풍미를 보여줍니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        글렌터렛 12년 (The Glenturret 12y):
+                      </strong>{" "}
+                      장인 정신이 깃든 묵직한 바디감과 복합적인 과일 향의
+                      예술적 조화.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        로얄 브라클라 12년 (Royal Brackla 12y):
+                      </strong>{" "}
+                      왕실이 허락한 최초의 이름. 우아하고 화사한 셰리의
+                      끝판왕입니다.
                     </p>
 
-                    <p className="guide-title">
-                      3. 보모어 12년이 좋았다면? (스모키·해조류·훈연)
-                    </p>
+                    <p className="guide-title">[Bourbon Cask]</p>
                     <p>
-                      적당한 피트(Peat) 향에 매료된 분들을 위해, 조금 더 강도가
-                      높은 '진짜 피트'의 세계로 안내합니다.
+                      글렌 그란트 12년의 깔끔함과 화사함에 매료된 분들을 위한
+                      선택입니다.
                     </p>
                     <p>
                       <strong className="whisky-highlight">
-                        라가불린 16년 (Lagavulin 16y):
+                        글렌카담 10년 (Glencadam 10y):
                       </strong>{" "}
-                      피트 위스키의 귀족입니다. 보모어보다 훨씬 묵직하고 깊은 탄
-                      맛과 함께, 마치 고기를 구운 듯한 육중한 감칠맛을 경험할 수
-                      있습니다.
+                      색소를 넣지 않은 순수한 황금빛. 갓 구운 빵의 고소함과
+                      레몬의 상큼함이 돋보입니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        부나하벤 12년 (Bunnahabhain 12y):
+                      </strong>{" "}
+                      피트 없는 아일라 위스키의 반전 매력. 견과류의 고소함과
+                      은은한 짠맛이 매력적입니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        딘스턴 12년 (Deanston 12y):
+                      </strong>{" "}
+                      밀랍 같은 부드러운 질감과 꿀, 바닐라의 풍부한 단맛이
+                      일품입니다.
+                    </p>
+
+                    <p className="guide-title">[Peat]</p>
+                    <p>
+                      보모어 12년의 스모키함이 궁금증을 자극했다면, 이제 진짜
+                      '피트의 늪'으로 초대합니다.
                     </p>
                     <p>
                       <strong className="whisky-highlight">
                         탈리스커 10년 (Talisker 10y):
                       </strong>{" "}
-                      "바다가 만든 위스키"라는 별명답게 후추 같은 매콤함과
-                      강렬한 바다 내음이 특징입니다. 피트 입문자들이 가장
-                      열광하는 술 중 하나입니다.
+                      "바다가 만든 위스키". 강렬한 후추의 매콤함과 바다 내음이
+                      폭발합니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        아드벡 우거다일 (Ardbeg Uigeadail):
+                      </strong>{" "}
+                      강렬한 피트와 달콤한 셰리의 만남. '단짠'의 완벽한 조화를
+                      보여주는 괴물 같은 술입니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        라프로익 10년 (Laphroaig 10y):
+                      </strong>{" "}
+                      "호불호의 끝판왕". 강한 병원 소독약 냄새 뒤에 숨겨진
+                      달콤한 반전 매력에 빠져보세요.
                     </p>
 
-                    <p className="guide-title">
-                      4. 그 외 도전해볼 만한 매력적인 리스트
+                    <p className="guide-title">[Double Wood Cask]</p>
+                    <p>
+                      버번의 화사함과 셰리의 달콤함을 동시에 잡고 싶을 때.
                     </p>
-                    <p className="guide-subtitle">
-                      🌓 더블 우드/캐스크 (두 가지 맛의 조화)
-                    </p>
-                    <p>버번과 셰리의 장점을 모두 잡고 싶을 때 추천합니다.</p>
                     <p>
                       <strong className="whisky-highlight">
                         발베니 12년 더블우드 (Balvenie 12y DoubleWood):
                       </strong>{" "}
-                      아마 입문자들이 가장 좋아할 술입니다. 부드러운 꿀맛과
-                      은은한 오크 향이 조화로워 실패가 없습니다.
+                      설명이 필요 없는 입문자의 교과서. 부드러운 꿀맛과 나무
+                      향의 완벽한 균형.
                     </p>
                     <p>
                       <strong className="whisky-highlight">
                         아벨라워 12년 (Aberlour 12y):
                       </strong>{" "}
-                      셰리의 달콤함이 버번의 바닐라와 아주 진하게 섞여 있어,
-                      글렌피딕보다 훨씬 진한 맛을 선호하는 분들께 좋습니다.
+                      더 진하고 꾸덕한 느낌의 더블 캐스크를 원한다면 최고의
+                      선택입니다.
                     </p>
 
-                    <p className="guide-subtitle">
-                      🤝 블렌디드 위스키 (최상의 밸런스)
-                    </p>
-                    <p>
-                      여러 증류소의 원액을 섞어 만든 만큼, 맛의 빈틈이 없는
-                      완성도를 자랑합니다.
-                    </p>
+                    <p className="guide-title">[Blended Whisky]</p>
+                    <p>여러 증류소의 장점만을 모아 만든 설계자의 위스키.</p>
                     <p>
                       <strong className="whisky-highlight">
                         조니워커 그린라벨 (Johnnie Walker Green Label):
                       </strong>{" "}
-                      블렌디드지만 '몰트 위스키'들만 섞어 만든 블렌디드
-                      몰트입니다. 탈리스커와 링크우드 등이 섞여 있어 화사함과
-                      스모키함을 동시에 느낄 수 있는 최고의 가성비 술입니다.
+                      4가지 싱글 몰트만 섞은 '블렌디드 몰트'. 신선함과
+                      스모키함을 동시에 즐길 수 있는 최고의 가성비입니다.
+                    </p>
+                    <p>
+                      <strong className="whisky-highlight">
+                        듀워스 12년 (Dewar's 12y):
+                      </strong>{" "}
+                      로얄 브라클라가 숨어있는 술. 부드럽고 매끄러운 목 넘김이
+                      일품인 전 세계적인 베스트셀러입니다.
                     </p>
                   </div>
                 </div>
