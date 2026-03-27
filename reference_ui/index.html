@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monthly Whisky</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&family=JetBrains+Mono:wght@300;500&family=Inter:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --deep-peat: #0a0908;
+        --amber-viscous: #cc8e35;
+        --amber-glow: #ffb443;
+        --gold-leaf: #d4af37;
+        --glass-shine: rgba(255, 255, 255, 0.08);
+        --transition-fluid: cubic-bezier(0.76, 0, 0.24, 1);
+        --bg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: var(--deep-peat);
+        color: #e0d7cc;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-noise);
+        opacity: 0.04;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      /* --- UI Components --- */
+
+      .stratified-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(
+          circle at 50% -20%,
+          #2c1e14 0%,
+          #0a0908 70%
+        );
+        z-index: -1;
+      }
+
+      header {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .hero-logos {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.75rem, 3vw, 1.5rem);
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+
+      .hero-partner-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(0.8rem, 2.4vw, 1.05rem);
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--amber-glow);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(204, 142, 53, 0.35);
+        transition:
+          color 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .hero-partner-link:hover {
+        color: #ffd700;
+        border-bottom-color: rgba(255, 180, 67, 0.55);
+      }
+
+      .hero-partner-link:focus-visible {
+        outline: 2px solid var(--amber-glow);
+        outline-offset: 4px;
+      }
+
+      .hero-logos .hero-cross {
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(0.95rem, 2.8vw, 1.25rem);
+        font-weight: 500;
+        color: var(--amber-glow);
+        opacity: 0.75;
+        line-height: 1;
+      }
+
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3rem, 10vw, 8rem);
+        font-weight: 900;
+        line-height: 0.9;
+        color: var(--amber-glow);
+        text-transform: uppercase;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(180deg, #ffd700 0%, #cc8e35 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+      }
+
+      .hero-tagline {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.15rem, 3.5vw, 1.75rem);
+        font-weight: 400;
+        font-style: italic;
+        letter-spacing: 0.02em;
+        color: rgba(224, 215, 204, 0.92);
+        margin-bottom: 2rem;
+      }
+
+      .scroll-indicator {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        opacity: 0.5;
+        animation: pulse 2s infinite ease-in-out;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.3;
+        }
+        50% {
+          transform: translateY(10px);
+          opacity: 0.7;
+        }
+      }
+
+      /* --- Definition Layers (Accordions) --- */
+
+      .strata-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
+      }
+
+      .strata-item {
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        margin-bottom: 0;
+        overflow: hidden;
+      }
+
+      .strata-trigger {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 2.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        color: var(--gold-leaf);
+        text-align: left;
+        transition: all 0.4s var(--transition-fluid);
+      }
+
+      .strata-trigger:hover {
+        padding-left: 1.5rem;
+        background: linear-gradient(
+          90deg,
+          rgba(204, 142, 53, 0.05) 0%,
+          transparent 100%
+        );
+      }
+
+      .strata-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        opacity: 0.6;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .strata-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.5rem, 4vw, 3rem);
+        font-weight: 400;
+      }
+
+      .strata-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.8s var(--transition-fluid),
+          padding 0.8s var(--transition-fluid);
+        background: rgba(20, 15, 10, 0.3);
+      }
+
+      .strata-item.active .strata-content {
+        max-height: 1000px;
+        padding-bottom: 4rem;
+      }
+
+      .strata-inner {
+        padding: 2rem 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.1);
+      }
+
+      .strata-text {
+        font-size: 1.1rem;
+        color: #bfae99;
+        line-height: 1.8;
+      }
+
+      .strata-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        color: var(--amber-viscous);
+        border-left: 2px solid var(--amber-viscous);
+        padding-left: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* --- Whisky picks (accordions) --- */
+
+      .whisky-showcase {
+        margin-top: 10rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.15);
+        padding-top: 3rem;
+      }
+
+      .whisky-unlock {
+        margin-top: 0.9rem;
+      }
+
+      .whisky-unlock-btn {
+        background: transparent;
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        color: var(--amber-glow);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 0.85rem 1.2rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .whisky-unlock-btn:hover {
+        border-color: rgba(255, 180, 67, 0.8);
+        color: #ffd700;
+        background: rgba(204, 142, 53, 0.08);
+      }
+
+      .whisky-strata-inner {
+        grid-template-columns: 1fr;
+        max-width: 720px;
+      }
+
+      .whisky-name-display {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.75rem, 4vw, 2.25rem);
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        color: var(--amber-glow);
+        margin-bottom: 1rem;
+      }
+
+      .whisky-item.locked .whisky-name-display,
+      .whisky-item.locked .strata-text p {
+        color: transparent;
+        user-select: none;
+      }
+
+      .whisky-item.locked .plus-icon {
+        visibility: hidden;
+      }
+
+      .whisky-item.locked .strata-trigger {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .strata-inner {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .hero-title {
+          font-size: 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stratified-bg"></div>
+
+    <header>
+      <p class="hero-logos">
+        <a
+          class="hero-partner-link"
+          href="https://dayoff.today/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >DOT (Day Off Today)</a
+        >
+        <span class="hero-cross" aria-hidden="true">×</span>
+        <a
+          class="hero-partner-link"
+          href="https://takeknowledge-dev.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Take Knowledge</a
+        >
+      </p>
+      <h1 class="hero-title">Monthly Whisky</h1>
+      <p class="hero-tagline">Single Malt Whisky</p>
+      <div class="scroll-indicator" style="margin-top: 2rem">
+        Scroll to explore
+      </div>
+    </header>
+
+    <main class="strata-container">
+      <!-- Section 1: Definition -->
+      <div class="strata-item">
+        <button class="strata-trigger" onclick="toggleStrata(this)">
+          <div>
+            <span class="strata-label">01 / CONCEPT</span>
+            <h2 class="strata-title">Whisky: 위스키의 정의</h2>
+          </div>
+          <span class="plus-icon">+</span>
+        </button>
+        <div class="strata-content">
+          <div class="strata-inner">
+            <div class="strata-text">
+              위스키는 곡물을 발효시킨 후 증류하여 오크통에서 숙성시킨 술을
+              말합니다. 어원은 생명의 물을 뜻하는 라틴어 'Aqua Vitae'의 켈트어
+              번역인 'Uisge Beatha'에서 유래되었습니다. 단순한 알코올을 넘어,
+              숙성되는 동안 나무와의 상호작용을 통해 수백 가지의 화합물이 결합된
+              복합적인 예술품입니다.
+            </div>
+            <div class="strata-meta">
+              Essential Elements:<br />
+              • Water (물)<br />
+              • Grain (곡물)<br />
+              • Yeast (효모)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Single Malt -->
+      <div class="strata-item">
+        <button class="strata-trigger" onclick="toggleStrata(this)">
+          <div>
+            <span class="strata-label">02 / CATEGORY</span>
+            <h2 class="strata-title">Single Malt: 순수함의 극치</h2>
+          </div>
+          <span class="plus-icon">+</span>
+        </button>
+        <div class="strata-content">
+          <div class="strata-inner">
+            <div class="strata-text">
+              '싱글 몰트'란 단 한 곳의 증류소(Single)에서 발아시킨
+              보리(Malt)만을 사용하여 만든 위스키를 뜻합니다. 여러 증류소의
+              원액을 섞는 블렌디드 위스키와 달리, 증류소 고유의 환경, 기후, 물의
+              특성이 맛에 그대로 투영됩니다. 가장 개성 넘치고 탐구할 가치가 높은
+              영역입니다.
+            </div>
+            <div class="strata-meta">
+              Characteristics:<br />
+              • Distinct Personality<br />
+              • Pot Still Distillation<br />
+              • Terroir Focus
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Scotch -->
+      <div class="strata-item">
+        <button class="strata-trigger" onclick="toggleStrata(this)">
+          <div>
+            <span class="strata-label">03 / ORIGIN</span>
+            <h2 class="strata-title">Scotch: 전통의 규격</h2>
+          </div>
+          <span class="plus-icon">+</span>
+        </button>
+        <div class="strata-content">
+          <div class="strata-inner">
+            <div class="strata-text">
+              스카치 위스키는 스코틀랜드 영토 내에서 증류되고 최소 3년 이상
+              오크통에서 숙성되어야 하는 엄격한 법적 기준을 따릅니다. 하일랜드,
+              로우랜드, 아일레이 등 지역에 따라 피트향의 강도와 풍미의 결이
+              확연히 달라지는 것이 특징입니다.
+            </div>
+            <div class="strata-meta">
+              Legal Standards:<br />
+              • Distilled in Scotland<br />
+              • Min. 3 Years Aging<br />
+              • Min. 40% ABV
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Whisky picks -->
+      <div class="whisky-showcase" id="whisky-showcase">
+        <div class="strata-item whisky-item locked">
+          <button
+            type="button"
+            class="strata-trigger"
+            onclick="toggleStrata(this)"
+          >
+            <div>
+              <span class="strata-label">01 / THIS MONTH</span>
+              <h2 class="strata-title">첫번째 위스키</h2>
+              <div class="whisky-unlock">
+                <button
+                  type="button"
+                  class="whisky-unlock-btn"
+                  onclick="unlockWhiskyItem(this, event)"
+                >
+                  위스키 공개
+                </button>
+              </div>
+            </div>
+            <span class="plus-icon">+</span>
+          </button>
+          <div class="strata-content">
+            <div class="strata-inner whisky-strata-inner">
+              <div class="strata-text">
+                <p class="whisky-name-display">GLEN DRONACH 12</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strata-item whisky-item locked">
+          <button
+            type="button"
+            class="strata-trigger"
+            onclick="toggleStrata(this)"
+          >
+            <div>
+              <span class="strata-label">02 / THIS MONTH</span>
+              <h2 class="strata-title">두번째 위스키</h2>
+              <div class="whisky-unlock">
+                <button
+                  type="button"
+                  class="whisky-unlock-btn"
+                  onclick="unlockWhiskyItem(this, event)"
+                >
+                  위스키 공개
+                </button>
+              </div>
+            </div>
+            <span class="plus-icon">+</span>
+          </button>
+          <div class="strata-content">
+            <div class="strata-inner whisky-strata-inner">
+              <div class="strata-text">
+                <p class="whisky-name-display">GLEN GRANT 12</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strata-item whisky-item locked">
+          <button
+            type="button"
+            class="strata-trigger"
+            onclick="toggleStrata(this)"
+          >
+            <div>
+              <span class="strata-label">03 / THIS MONTH</span>
+              <h2 class="strata-title">세번째 위스키</h2>
+              <div class="whisky-unlock">
+                <button
+                  type="button"
+                  class="whisky-unlock-btn"
+                  onclick="unlockWhiskyItem(this, event)"
+                >
+                  위스키 공개
+                </button>
+              </div>
+            </div>
+            <span class="plus-icon">+</span>
+          </button>
+          <div class="strata-content">
+            <div class="strata-inner whisky-strata-inner">
+              <div class="strata-text">
+                <p class="whisky-name-display">BOWMORE 12</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      style="
+        padding: 5rem 2rem;
+        text-align: center;
+        opacity: 0.3;
+        font-family: &quot;JetBrains Mono&quot;, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.5em;
+      "
+    >
+      &copy; 2026 Monthly Whisky. DRINK RESPONSIBLY.
+    </footer>
+
+    <script>
+      function unlockWhiskyItem(button, event) {
+        event.stopPropagation();
+        const item = button.closest(".whisky-item");
+        const trigger = item.querySelector(".strata-trigger");
+        item.classList.remove("locked");
+        button.parentElement.remove();
+        toggleStrata(trigger);
+      }
+
+      function toggleStrata(element) {
+        const item = element.parentElement;
+        if (
+          item.classList.contains("whisky-item") &&
+          item.classList.contains("locked")
+        )
+          return;
+
+        const isActive = item.classList.contains("active");
+
+        // Close all other items
+        document.querySelectorAll(".strata-item").forEach((i) => {
+          i.classList.remove("active");
+          i.querySelector(".plus-icon").textContent = "+";
+        });
+
+        if (!isActive) {
+          item.classList.add("active");
+          element.querySelector(".plus-icon").textContent = "−";
+        }
+      }
+
+      // Entrance Animation Logic
+      const observerOptions = {
+        threshold: 0.1,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".strata-item").forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 1s cubic-bezier(0.22, 1, 0.36, 1)";
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>

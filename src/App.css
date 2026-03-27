@@ -1,0 +1,386 @@
+:root {
+  --deep-peat: #0a0908;
+  --amber-viscous: #cc8e35;
+  --amber-glow: #ffb443;
+  --gold-leaf: #d4af37;
+  --transition-fluid: cubic-bezier(0.76, 0, 0.24, 1);
+  --bg-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--deep-peat);
+  color: #e0d7cc;
+  position: relative;
+}
+
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-noise);
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.stratified-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at 50% -20%, #2c1e14 0%, #0a0908 70%);
+  z-index: 0;
+}
+
+header {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-partner-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.8rem, 2.4vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber-glow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(204, 142, 53, 0.35);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hero-partner-link:hover {
+  color: #ffd700;
+  border-bottom-color: rgba(255, 180, 67, 0.55);
+}
+
+.hero-partner-link:focus-visible {
+  outline: 2px solid var(--amber-glow);
+  outline-offset: 4px;
+}
+
+.hero-cross {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.95rem, 2.8vw, 1.25rem);
+  font-weight: 500;
+  color: var(--amber-glow);
+  opacity: 0.75;
+  line-height: 1;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--amber-glow);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(180deg, #ffd700 0%, #cc8e35 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.75rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: rgba(224, 215, 204, 0.92);
+  margin-bottom: 2rem;
+}
+
+.scroll-indicator {
+  margin-top: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.7;
+  }
+}
+
+.strata-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.strata-item {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  overflow: hidden;
+}
+
+.strata-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 2.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--gold-leaf);
+  text-align: left;
+  transition: all 0.4s var(--transition-fluid);
+}
+
+.strata-trigger:hover {
+  padding-left: 1.5rem;
+  background: linear-gradient(90deg, rgba(204, 142, 53, 0.05) 0%, transparent 100%);
+}
+
+.strata-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.strata-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 400;
+  margin: 0;
+}
+
+.plus-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.strata-content {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.8s var(--transition-fluid),
+    padding 0.8s var(--transition-fluid);
+  background: rgba(20, 15, 10, 0.3);
+}
+
+.strata-item.active .strata-content {
+  max-height: 8000px;
+  padding-bottom: 4rem;
+}
+
+.strata-inner {
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.strata-inner-full {
+  grid-template-columns: 1fr;
+}
+
+.strata-text {
+  font-size: 1.1rem;
+  color: #bfae99;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.strata-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--amber-viscous);
+  border-left: 2px solid var(--amber-viscous);
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.strata-meta p {
+  margin: 0;
+}
+
+.scotch-map {
+  width: 100%;
+  max-width: 260px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.scotch-region-list {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.scotch-region-list p {
+  margin: 0;
+  line-height: 1.7;
+  color: #ccbda8;
+}
+
+.scotch-region-list strong {
+  color: #e4cb86;
+}
+
+.whisky-showcase {
+  margin-top: 10rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding-top: 3rem;
+}
+
+.whisky-unlock {
+  margin: 0 0 1.25rem;
+}
+
+.whisky-unlock-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: var(--amber-glow);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.whisky-unlock-btn:hover {
+  border-color: rgba(255, 180, 67, 0.8);
+  color: #ffd700;
+  background: rgba(204, 142, 53, 0.08);
+}
+
+.whisky-strata-inner {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+}
+
+.whisky-name-display {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--amber-glow);
+  margin-bottom: 1rem;
+}
+
+.whisky-extra-guide {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.whisky-extra-guide h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 600;
+  color: var(--amber-glow);
+  margin: 0 0 1rem;
+}
+
+.whisky-extra-guide p {
+  margin: 0 0 0.9rem;
+  color: #c7b9a7;
+}
+
+.whisky-extra-guide .guide-title {
+  margin-top: 1.5rem;
+  color: #e2c97a;
+  font-weight: 600;
+}
+
+.whisky-extra-guide .guide-subtitle {
+  margin-top: 1.2rem;
+  color: var(--amber-glow);
+  font-weight: 600;
+}
+
+.whisky-highlight {
+  color: #f0d27f;
+  font-weight: 700;
+}
+
+.whisky-item.locked .whisky-name-display {
+  color: transparent;
+  user-select: none;
+}
+
+.whisky-item.locked .plus-icon {
+  visibility: hidden;
+}
+
+.whisky-item.locked .strata-trigger {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+  text-align: center;
+  opacity: 0.3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+}
+
+@media (max-width: 768px) {
+  .strata-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .strata-trigger:hover {
+    padding-left: 0.5rem;
+  }
+}
